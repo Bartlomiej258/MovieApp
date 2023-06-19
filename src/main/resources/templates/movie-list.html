@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movies List</title>
+</head>
+<body>
+
+<h1>List of movies</h1>
+
+<form action="#" method="GET">
+    <select name="category">
+        <option value="">All Categories</option>
+        <option th:each="category : ${T(com.movie.movieproject.model.Category).values()}"
+                th:value="${category}" th:text="${category}"></option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<h2 th:if="${filteredCategory}">Filtered Category: <span th:text="${filteredCategory}"></span></h2>
+
+<ul>
+    <th:block th:each="movie : ${movies}">
+        <li>
+            <a th:href="@{/movies/{id}(id=${movie.id})}" th:text="${movie.title}"></a>
+        </li>
+        <li th:text="${movie.category}"></li>
+    </th:block>
+</ul>
+
+</body>
+</html>
